@@ -15,7 +15,7 @@ public class Main {
         int counter = 0;
         List<String> allWords = readWords().stream()
                 .filter(word -> word.length() > 2)
-                .map(word -> word.contains("/") ? word.split("/")[0] : word)
+                .map(word -> word.contains("/") ? word.split("/")[0] : word) //part of words list contains sign '/' so here I cut it
                 .collect(Collectors.toList());
         System.out.println("Ilość słow załadowanych do bazy: " + allWords.size());
         List<String> resultList = new ArrayList<>();
