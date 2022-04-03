@@ -33,16 +33,19 @@ public class Main {
 
     public static List<String> readWords() {
         Path path = Paths.get(getStringInput("Podaj ścieżkę do pliku z listą słów:"));
-        List<String> words = new ArrayList<>();
-        try {
-            words = Files.readAllLines(path);
-        } catch (IOException e) {
-            System.out.println("Nie mogę wczytać pliku. " + e.getMessage());
+        List<String> words;
+        while(true) {
+            try {
+                words = Files.readAllLines(path);
+                return words;
+            } catch (IOException e) {
+                System.out.println("Nie mogę wczytać pliku. " + e.getMessage());
+                System.out.println("Podaj ścieżkę do pliku jeszcze raz:");
+            }
         }
-        return words;
+
     }
 
-    //TODO rewite for loop
     public static boolean analyzer(String keyWord, String wordToAnalyze) {
         char[] charsArr = keyWord.toCharArray();
         List<Character> keyChars = new ArrayList<>();
@@ -55,18 +58,13 @@ public class Main {
             charsToAnalyze.add(aChar);
         }
 
-        for (int i = 0; i < charsToAnalyze.size(); i = i) {
-            for (int j = 0; j < keyChars.size(); j++) {
-                if (charsToAnalyze.get(0) == keyChars.get(j)) {
-                    charsToAnalyze.remove(0);
-                    keyChars.remove(j);
-                    if (charsToAnalyze.isEmpty()) {
-                        return true;
-                    }
-                    break;
-                }
-                if (j == keyChars.size() - 1) {
-                    return false;
+        for (int i = 0; i < keyChars.size(); i++) {
+            if (charsToAnalyze.get(0) == keyChars.get(i)) {
+                charsToAnalyze.remove(0);
+                keyChars.remove(i);
+                i = 0;
+                if (charsToAnalyze.isEmpty()) {
+                    return true;
                 }
             }
         }
@@ -75,7 +73,6 @@ public class Main {
 
     public static void fileSaver(List<String> listToSave) {
         Path path = Paths.get("znalezione-slowa.txt");
-
         try {
             Files.write(path, listToSave, StandardOpenOption.CREATE);
         } catch (IOException e) {
@@ -91,6 +88,5 @@ public class Main {
 
     public static void main(String[] args) {
         wordInWordsCounter();
-
     }
 }
