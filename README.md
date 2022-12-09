@@ -6,3 +6,5 @@ How to use:
 * in the beginning the program will ask you for your dictionary file (absolute path preferred). For polish words you can use "polish-words.txt" that is in project's directory
 * next step is to type a key word that will be analyzed
 * found words will be saved as "found-words.txt" in project's directory
+
+
